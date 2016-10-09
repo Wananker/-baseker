@@ -13,14 +13,14 @@ module.exports = {
         filename: '[name].js'
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+        new webpack.NoErrorsPlugin()
     ],
     module: {
         loaders: [
-            {test: /\.scss$/, loaders: ["style", "css", "sass"]},
+            {test: /\.scss$/, loaders: ["style", "css?sourceMap", "sass?sourceMap"]},
             {test: /\.js?$/, exclude: /node_modules/, loader: 'babel', query: {presets: ['react', 'es2015']}}
         ]
     }
