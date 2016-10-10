@@ -1,0 +1,19 @@
+@import "../variables";
+
+$divColor: #e0d6bc;
+$demoColor: #e0d6bc;
+
+@mixin divFacade($width:100px,$height:100px,$color:yellow) {
+  width: $width;
+  height: $height;
+  background-color: $color;
+}
+
+.div {
+  @include divFacade(330px, 140px, $divColor)
+}
+.demo {
+  width: 450px;
+  height: 140px;
+  background-color: $demoColor;
+}
