@@ -7,7 +7,8 @@ class Nav extends Component {
             <div className="nav">
                 <div className="nav_header">
                     <Link to="/">主页</Link>
-                    <Link to="/about">About</Link>
+                    <Link to="/counter">组件</Link>
+                    <Link to="/about">关于</Link>
                 </div>
             </div>
         );
