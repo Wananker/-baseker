@@ -1,0 +1,21 @@
+@import "../variables";
+
+.nav {
+  background-color: bisque;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+}
+
+.nav_header {
+  line-height: 25px;
+
+  a {
+    margin: auto 5px;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    background: lavenderblush;
+  }
+}
