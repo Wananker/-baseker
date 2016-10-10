@@ -9,7 +9,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: "/dist/",
+        publicPath: "/static/",
         filename: '[name].js'
     },
     plugins: [
@@ -20,7 +20,7 @@ module.exports = {
     ],
     module: {
         loaders: [
-            {test: /\.scss$/, loaders: ["style", "css?sourceMap", "sass?sourceMap"]},
+            {test: /\.scss$/, loaders: ["style", "css", "sass"]},
             {test: /\.js?$/, exclude: /node_modules/, loader: 'babel', query: {presets: ['react', 'es2015']}}
         ]
     }

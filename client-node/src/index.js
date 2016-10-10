@@ -5,6 +5,7 @@ import {Provider} from "react-redux";
 import App from "./containers/App";
 import About from "./containers/About";
 import Counter from "./containers/Counter";
+import Home from "./containers/Home";
 import configureStore from "./store/configureStore.prod";
 
 const store = configureStore();
@@ -13,7 +14,8 @@ render(
     <Provider store={store}>
         <Router history={hasHistory}>
             <Route path="/" component={App}>
-                <IndexRoute component={Counter}/>
+                <IndexRoute component={Home}/>
+                <Route path="/counter" component={Counter}/>
                 <Route path="/about" component={About}/>
             </Route>
         </Router>
