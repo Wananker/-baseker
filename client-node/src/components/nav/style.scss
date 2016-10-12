@@ -1,21 +1,25 @@
 @import "../variables";
 
 .nav {
-  background-color: bisque;
+  background-color: #FFFFCC;
   width: 100%;
   margin: 0;
-  padding: 10px;
+  position: relative;
 }
 
 .nav_header {
-  line-height: 25px;
-
+    margin-left: 30%;
   a {
-    margin: auto 5px;
+    padding: 22px 28px 7px;
+    display: inherit;
     text-decoration: none;
+    float: left;
+    height: 30px;
   }
   a:hover {
-    text-decoration: underline;
-    background: lavenderblush;
+    background-color: #b8efef ;
+  }
+  .nav_active{
+    background-color: $bodyColor;
   }
 }

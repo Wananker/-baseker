@@ -1,8 +1,14 @@
-$bodyColor: lightyellow;
+$bodyColor: #CCFFFF;
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   margin:0;
   background: $bodyColor;
+}
+.container{
+  padding: 0px 18%;
+}
+.clear{
+  clear: both;
 }
