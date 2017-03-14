@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from "react";
 
 class About extends Component {
     render() {
-        var aboutStyle ={textIndent: '2rem'}
+        let aboutStyle ={textIndent: '2rem'}
 
         return (
             <div style={aboutStyle}>

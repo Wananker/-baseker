@@ -6,6 +6,7 @@ import App from "./containers/App";
 import About from "./containers/About";
 import Counter from "./containers/Counter";
 import Home from "./containers/Home";
+import Article from "./containers/Article";
 import configureStore from "./store/configureStore.prod";
 
 const store = configureStore();
@@ -17,6 +18,7 @@ render(
                 <IndexRoute component={Home}/>
                 <Route path="/counter" component={Counter}/>
                 <Route path="/about" component={About}/>
+                <Route path="/article" component={Article}/>
             </Route>
         </Router>
     </Provider>,

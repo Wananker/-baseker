@@ -15,6 +15,7 @@ class App extends Component {
                     <Nav>
                         <NavItem eventKey={2} href="#/counter">Counter</NavItem>
                         <NavItem eventKey={1} href="#/about">About</NavItem>
+                        <NavItem eventKey={1} href="#/article">Article</NavItem>
                         <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                             <MenuItem eventKey={3.1}>Action</MenuItem>
                             <MenuItem eventKey={3.2}>Another action</MenuItem>
@@ -24,6 +25,7 @@ class App extends Component {
                         </NavDropdown>
                     </Nav>
                 </Navbar>
+
                 <div >
                     {this.props.children}
                 </div>
