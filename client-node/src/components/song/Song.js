@@ -3,7 +3,7 @@ import "./style.scss";
 class Song extends Component {
     render() {
         return (
-            <div className="home">
+            <div >
                 <h1>你好，欢迎到这里来！</h1>
                 <p> 我流连异国 </p>
                 <p> 等着心爱的姑娘 </p>

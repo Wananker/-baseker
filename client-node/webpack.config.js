@@ -5,7 +5,7 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     entry: {
         app: path.join(__dirname, 'src'),
-        vendors: ['react', 'redux']
+        vendors: ['react', 'react-bootstrap', 'react-dom', 'react-redux', 'react-router', 'redux', 'redux-router', 'redux-thunk']
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -13,7 +13,7 @@ module.exports = {
         filename: '[name].js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
