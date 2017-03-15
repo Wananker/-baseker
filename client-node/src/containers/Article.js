@@ -1,56 +1,19 @@
-import React, {Component, PropTypes} from "react";
-import {Button,Grid, Row, Col} from "react-bootstrap";
-import {ARTICLE_LIST, ARTICLE_VIEW, ARTICLE_DELETE, ARTICLE_SAVE} from '../constants/AppConfig'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import Article from '../components/article/Article'
+import * as AppActions from '../actions/app'
 
-class Article extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {articles: []};
-    }
-
-    componentWillMount() {
-        let promise = $.ajax(ARTICLE_LIST);
-        promise.done(function (vo) {
-            if(vo.ok)
-            this.setState({articles: page.list})
-        }.bind(this));
-        promise.fail(function (error) {
-            console.log(error)
-        });
-    }
-
-    render() {
-        let aboutStyle = {textIndent: '2rem'};
-        let dateStyle = {marginTop: '1rem'};
-        const {articles} = this.state;
-        let view = function () {
-
-        };
-
-        return (
-            <Grid>
-                <Button bsSize="small" href="#/article/add"><Glyphicon glyph="plus" /> Add</Button>
-                {articles.map(article =>
-                    <div key={article.id}>
-                        <Row >
-                            <Col md={8}><h1><Button bsStyle="link">{article.title}</Button></h1></Col>
-                            <Col md={2}>
-                                <Button bsSize="small"><Glyphicon glyph="edit" />  Edit</Button>
-                                <Button bsSize="small"><Glyphicon glyph="trash" /> Delete</Button>
-                            </Col>
-                            <Col md={2} style={dateStyle}> {article.createTime}</Col>
-                        </Row>
-                        <Row>
-                            <div style={aboutStyle}>
-                                <p>{article.brief}</p>
-                            </div>
-                        </Row>
-                        <hr/>
-                    </div>
-                )}
-            </Grid>
-        )
+//将state.counter绑定到props的counter
+function mapStateToProps(state) {
+    return {
+        article: state.article.article,
+        validationState: state.article.validationState
     }
 }
-export default Article;
+//将action的所有方法绑定到props上
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(AppActions, dispatch)
+}
+
+//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+export default connect(mapStateToProps, mapDispatchToProps)(Article)

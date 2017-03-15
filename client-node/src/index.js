@@ -7,7 +7,7 @@ import About from "./containers/About";
 import Counter from "./containers/Counter";
 import Home from "./containers/Home";
 import Article from "./containers/Article";
-import ArticleAdd from "./containers/ArticleAdd";
+import ArticleList from "./containers/ArticleList";
 import configureStore from "./store/configureStore.prod";
 
 const store = configureStore();
@@ -20,9 +20,9 @@ render(
                 <Route path="counter" component={Counter}/>
                 <Route path="about" component={About}/>
                 <Route path="article">
-                    <IndexRoute component={Article}/>
-                    <Route path="add" component={ArticleAdd}/>
-                    <Route path="update/:id" component={ArticleAdd}/>
+                    <IndexRoute component={ArticleList}/>
+                    <Route path="add" component={Article}/>
+                    <Route path="edit/:id" component={Article}/>
                 </Route>
             </Route>
         </Router>

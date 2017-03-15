@@ -1,30 +1,19 @@
 import React, {Component, PropTypes} from "react";
 import {browserHistory} from 'react-router';
-import {Grid, Button, Form, FormGroup, FormControl, Checkbox, Col} from "react-bootstrap";
-import {ARTICLE_LIST, ARTICLE_VIEW, ARTICLE_DELETE, ARTICLE_SAVE} from '../constants/AppConfig'
+import {Glyphicon, Grid, Button, Form, FormGroup, FormControl, Checkbox, Col} from "react-bootstrap";
+import {ARTICLE_LIST, ARTICLE_VIEW, ARTICLE_DELETE, ARTICLE_SAVE} from '../../constants/AppConfig'
+import {createHashHistory} from 'history'
+const history = createHashHistory()
 
 class ArticleAdd extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            article: {
-                id: this.props.params.id, title: null, brief: null, content: null
-            },
-            validationState: {
-                title: null, brief: null, content: null
-            }
-
-
-        };
-    }
-
     componentWillMount() {
+        const {article_edit} = this.props;
         let id = this.props.params.id || '';
         if ('' != id) {
             let promise = $.ajax(ARTICLE_VIEW + this.state.article.id);
-            promise.done(function (article) {
-                this.setState({article: article})
+            promise.done(function (vo) {
+                article_edit(vo);
             }.bind(this));
             promise.fail(function (error) {
                 console.log(error)
@@ -34,7 +23,7 @@ class ArticleAdd extends Component {
 
 
     render() {
-        const {article, validationState} = this.state;
+        const {article, validationState} = this.props;
 
         let handleInput = function (name, event) {
             let value = event.target.value || '';
@@ -57,10 +46,14 @@ class ArticleAdd extends Component {
                 }
             }
             let promise = $.ajax({
-                url: ARTICLE_SAVE, data: JSON.stringify(article), dataType: 'json', type: 'post', contentType: 'application/json;charset=utf-8'
+                url: ARTICLE_SAVE,
+                data: JSON.stringify(article),
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json;charset=utf-8'
             });
-            promise.done(function () {
-                browserHistory.push('#/article/')
+            promise.done(function (vo) {
+                if (vo.ok) history.pushState(null, '/article/')
             }.bind(this));
             promise.fail(function (error) {
                 console.log(error)

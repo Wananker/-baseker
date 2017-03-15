@@ -4,14 +4,10 @@ import  {Alert, Button, Navbar, Nav, NavItem, NavDropdown, MenuItem} from "react
 class App extends Component {
 
     render() {
-        console.log('this.props ↓');
-        console.log(this.props);
+
         const {alertVisible, show_alert, hide_alert} = this.props;
         console.log('alertVisible ↓');
         console.log(alertVisible);
-        let handleAlertDismiss = () => {
-            hide_alert();
-        };
         return (
             <div>
                 <Navbar>
@@ -33,14 +29,12 @@ class App extends Component {
                         </NavDropdown>
                     </Nav>
                 </Navbar>
-                { alertVisible ? <Alert bsStyle="danger" onDismiss={handleAlertDismiss.bind(this)}>
+                { alertVisible ? <Alert bsStyle="danger" onDismiss={hide_alert}>
                         <h4>Oh snap! You got an error!</h4>
                         <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor
                             ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet
                             fermentum.</p>
                         <p>
-                            <Button bsStyle="danger">Take this action</Button>
-                            <span> or </span>
                             <Button onClick={hide_alert}>Hide Alert</Button>
                         </p>
                     </Alert> : null
