@@ -1,36 +1,20 @@
-import React, {Component, PropTypes} from "react";
-import  {Navbar, Nav, NavItem, NavDropdown, MenuItem} from "react-bootstrap";
-import {LinkContainer} from 'react-router-bootstrap';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import App from '../components/App'
+import * as AppActions from '../actions/app'
 
-class App extends Component {
-    render() {
-        return (
-            <div>
-                <Navbar>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            <a href="#">React-Bootstrap</a>
-                        </Navbar.Brand>
-                    </Navbar.Header>
-                    <Nav>
-                        <NavItem eventKey={2} href="#/counter">Counter</NavItem>
-                        <NavItem eventKey={1} href="#/about">About</NavItem>
-                        <NavItem eventKey={1} href="#/article">Article</NavItem>
-                        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                            <MenuItem eventKey={3.1}>Action</MenuItem>
-                            <MenuItem eventKey={3.2}>Another action</MenuItem>
-                            <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                            <MenuItem divider/>
-                            <MenuItem eventKey={3.4}>Separated link</MenuItem>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar>
-
-                <div >
-                    {this.props.children}
-                </div>
-            </div>
-        )
+//将state.counter绑定到props的counter
+function mapStateToProps(state) {
+    console.log('mapStateToProps state ↓');
+    console.log(state);
+    return {
+        alertVisible: state.app.alertVisible
     }
 }
-export default App
+//将action的所有方法绑定到props上
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(AppActions, dispatch)
+}
+
+//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+export default connect(mapStateToProps, mapDispatchToProps)(App)

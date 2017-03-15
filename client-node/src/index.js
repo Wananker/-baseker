@@ -21,7 +21,8 @@ render(
                 <Route path="about" component={About}/>
                 <Route path="article">
                     <IndexRoute component={Article}/>
-                    <Route path="add/:id" component={ArticleAdd}/>
+                    <Route path="add" component={ArticleAdd}/>
+                    <Route path="update/:id" component={ArticleAdd}/>
                 </Route>
             </Route>
         </Router>

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from "react";
+import {browserHistory} from 'react-router';
 import {Grid, Button, Form, FormGroup, FormControl, Checkbox, Col} from "react-bootstrap";
 import {ARTICLE_LIST, ARTICLE_VIEW, ARTICLE_DELETE, ARTICLE_SAVE} from '../constants/AppConfig'
 
@@ -8,7 +9,7 @@ class ArticleAdd extends Component {
         super(props);
         this.state = {
             article: {
-                id: this.props.params.id, title: '', brief: '', content: ''
+                id: this.props.params.id, title: null, brief: null, content: null
             },
             validationState: {
                 title: null, brief: null, content: null
@@ -19,26 +20,51 @@ class ArticleAdd extends Component {
     }
 
     componentWillMount() {
-        let promise = $.ajax(ARTICLE_VIEW + this.state.article.id);
-        promise.done(function (article) {
-            this.setState({article: article})
-        }.bind(this));
-        promise.fail(function (error) {
-            console.log(error)
-        });
+        let id = this.props.params.id || '';
+        if ('' != id) {
+            let promise = $.ajax(ARTICLE_VIEW + this.state.article.id);
+            promise.done(function (article) {
+                this.setState({article: article})
+            }.bind(this));
+            promise.fail(function (error) {
+                console.log(error)
+            });
+        }
     }
 
 
     render() {
         const {article, validationState} = this.state;
+
         let handleInput = function (name, event) {
             let value = event.target.value || '';
             article[name] = value;
             this.setState({article: article});
             if ('' == value) {
                 validationState[name] = 'error';
-                this.setState({validationState: validationState});
+            } else {
+                validationState[name] = null;
             }
+            this.setState({validationState: validationState});
+        };
+
+        let handleSubmit = function () {
+            for (let key in article) {
+                if (article[key] == null && key in validationState) {
+                    validationState[key] = 'error';
+                    this.setState({validationState: validationState});
+                    return;
+                }
+            }
+            let promise = $.ajax({
+                url: ARTICLE_SAVE, data: JSON.stringify(article), dataType: 'json', type: 'post', contentType: 'application/json;charset=utf-8'
+            });
+            promise.done(function () {
+                browserHistory.push('#/article/')
+            }.bind(this));
+            promise.fail(function (error) {
+                console.log(error)
+            });
         };
         return (
             <Grid>
@@ -66,7 +92,7 @@ class ArticleAdd extends Component {
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button type="submit"> 提交 </Button>
+                            <Button bsSize="small" onClick={handleSubmit.bind(this)}> 提交 </Button>
                         </Col>
                     </FormGroup>
                 </Form>

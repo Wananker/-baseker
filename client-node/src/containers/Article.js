@@ -11,7 +11,8 @@ class Article extends Component {
 
     componentWillMount() {
         let promise = $.ajax(ARTICLE_LIST);
-        promise.done(function (page) {
+        promise.done(function (vo) {
+            if(vo.ok)
             this.setState({articles: page.list})
         }.bind(this));
         promise.fail(function (error) {
@@ -29,14 +30,14 @@ class Article extends Component {
 
         return (
             <Grid>
-                <Button bsSize="small" href="#/article/add/1"><span className="glyphicon glyphicon-plus"/> Add</Button>
+                <Button bsSize="small" href="#/article/add"><Glyphicon glyph="plus" /> Add</Button>
                 {articles.map(article =>
                     <div key={article.id}>
                         <Row >
                             <Col md={8}><h1><Button bsStyle="link">{article.title}</Button></h1></Col>
                             <Col md={2}>
-                                <Button bsSize="small"><span className="glyphicon glyphicon-edit"/> Edit</Button>
-                                <Button bsSize="small"><span className="glyphicon glyphicon-trash"/> Delete</Button>
+                                <Button bsSize="small"><Glyphicon glyph="edit" />  Edit</Button>
+                                <Button bsSize="small"><Glyphicon glyph="trash" /> Delete</Button>
                             </Col>
                             <Col md={2} style={dateStyle}> {article.createTime}</Col>
                         </Row>
