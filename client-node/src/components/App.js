@@ -6,8 +6,6 @@ class App extends Component {
     render() {
 
         const {alertVisible, show_alert, hide_alert} = this.props;
-        console.log('alertVisible ↓');
-        console.log(alertVisible);
         return (
             <div>
                 <Navbar>

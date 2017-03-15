@@ -1,4 +1,4 @@
-import {ARTICLE_LIST} from '../actions/article'
+import {ARTICLE_LIST, ARTICLE_EDIT} from '../actions/article'
 
 //reducer其实也是个方法而已,参数是state和action,返回值是新的state
 const initState = {
@@ -11,13 +11,12 @@ const initState = {
     }
 };
 export default function article(state = initState, action) {
-    console.log('article reducer state ↓');
-    console.log(state);
-    console.log('article reducer action ↓');
-    console.log(action);
     switch (action.type) {
         case ARTICLE_LIST:
             return Object.assign(state, {articles: action.data.list});
+        case ARTICLE_EDIT:
+            return Object.assign(state, {article: action.data});
+
         default:
             return state;
     }

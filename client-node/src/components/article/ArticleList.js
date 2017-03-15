@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import {Glyphicon,Button, Grid, Row, Col} from "react-bootstrap";
-import {ARTICLE_LIST, ARTICLE_VIEW, ARTICLE_DELETE, ARTICLE_SAVE} from '../../constants/AppConfig'
+import {Glyphicon, Button, Grid, Row, Col} from "react-bootstrap";
 
 class Article extends Component {
 
@@ -9,24 +8,15 @@ class Article extends Component {
     }
 
     componentWillMount() {
-        console.log('componentWillMount this.props ↓');
-        console.log(this.props);
-        const {article_list} = this.props;
-        let promise = $.ajax(ARTICLE_LIST);
-        promise.done(function (vo) {
-            article_list(vo);
-        }.bind(this));
-        promise.fail(function (error) {
-            console.log(error)
-        });
+        const {article_init} = this.props;
+        article_init();
     }
 
     render() {
         let aboutStyle = {textIndent: '2rem'};
         let dateStyle = {marginTop: '1rem'};
-        console.log('this.props ↓');
-        console.log(this.props);
-        const {articles} = this.props;
+
+        const {articles, article_delete} = this.props;
 
         return (
             <Grid>
@@ -36,8 +26,11 @@ class Article extends Component {
                         <Row >
                             <Col md={8}><h1><Button bsStyle="link">{article.title}</Button></h1></Col>
                             <Col md={2}>
-                                <Button bsSize="small"><Glyphicon glyph="edit"/> Edit</Button>
-                                <Button bsSize="small"><Glyphicon glyph="trash"/> Delete</Button>
+                                <Button bsSize="small" href={"#/article/edit/" + article.id}><Glyphicon glyph="edit"/>
+                                    Edit</Button>
+                                <Button bsSize="small" onClick={article_delete.bind(this, article.id)}><Glyphicon
+                                    glyph="trash"/>
+                                    Delete</Button>
                             </Col>
                             <Col md={2} style={dateStyle}> {article.createTime}</Col>
                         </Row>

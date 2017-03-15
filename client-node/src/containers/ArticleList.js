@@ -5,8 +5,6 @@ import * as ArticleActions from '../actions/article'
 
 //将state.counter绑定到props的counter
 function mapStateToProps(state) {
-    console.log('articles mapStateToProps state ↓');
-    console.log(state);
     return {
         articles: state.article.articles
     }

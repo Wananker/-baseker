@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from "react";
 import {browserHistory} from 'react-router';
 import {Glyphicon, Grid, Button, Form, FormGroup, FormControl, Checkbox, Col} from "react-bootstrap";
-import {ARTICLE_LIST, ARTICLE_VIEW, ARTICLE_DELETE, ARTICLE_SAVE} from '../../constants/AppConfig'
+import {URL_ARTICLE_LIST, URL_ARTICLE_VIEW, URL_ARTICLE_DELETE, URL_ARTICLE_SAVE} from '../../constants/AppConfig'
 import {createHashHistory} from 'history'
-const history = createHashHistory()
+const history = createHashHistory();
 
 class ArticleAdd extends Component {
 
@@ -11,10 +11,10 @@ class ArticleAdd extends Component {
         const {article_edit} = this.props;
         let id = this.props.params.id || '';
         if ('' != id) {
-            let promise = $.ajax(ARTICLE_VIEW + this.state.article.id);
+            let promise = $.ajax(URL_ARTICLE_VIEW + id);
             promise.done(function (vo) {
                 article_edit(vo);
-            }.bind(this));
+            });
             promise.fail(function (error) {
                 console.log(error)
             });
@@ -46,7 +46,7 @@ class ArticleAdd extends Component {
                 }
             }
             let promise = $.ajax({
-                url: ARTICLE_SAVE,
+                url: URL_ARTICLE_SAVE,
                 data: JSON.stringify(article),
                 dataType: 'json',
                 type: 'post',
