@@ -1,18 +1,19 @@
-import React, {Component, PropTypes} from "react";
-import {Button, Grid, Row, Col} from "react-bootstrap";
-import Song from "../components/song/Song";
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import Home from '../components/home/Home'
+import * as AppActions from '../actions/app'
+import * as CounterActions from '../actions/counter'
 
-class Home extends Component {
-
-    render() {
-        return (
-            <Grid>
-                <Row>
-                    <Col md={6}> <Song/></Col>
-                </Row>
-                <Button bsSize="small" onClick={() => this.setState({alertVisible: false})}>close</Button>
-            </Grid>
-        )
+//将state.counter绑定到props的counter
+function mapStateToProps(state) {
+    return {
+        // alertVisible: state.app.alertVisible
     }
 }
-export default Home;
+//将action的所有方法绑定到props上
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(AppActions, dispatch);
+}
+
+//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
