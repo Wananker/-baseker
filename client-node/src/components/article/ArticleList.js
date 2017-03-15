@@ -24,7 +24,7 @@ class Article extends Component {
                 {articles.map(article =>
                     <div key={article.id}>
                         <Row >
-                            <Col md={8}><h1><Button bsStyle="link">{article.title}</Button></h1></Col>
+                            <Col md={8}><h1><Button bsStyle="link" href={"#/article/view/" + article.id}>{article.title}</Button></h1></Col>
                             <Col md={2}>
                                 <Button bsSize="small" href={"#/article/edit/" + article.id}><Glyphicon glyph="edit"/>
                                     Edit</Button>
