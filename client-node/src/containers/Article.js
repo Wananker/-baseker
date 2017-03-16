@@ -7,7 +7,7 @@ import * as ArticleActions from '../actions/article'
 function mapStateToProps(state) {
     return {
         article: state.article.article,
-        validationState: state.article.validationState
+        view: state.article.view
     }
 }
 //将action的所有方法绑定到props上

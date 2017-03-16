@@ -7,45 +7,23 @@ const history = createHashHistory();
 
 class ArticleAdd extends Component {
 
-    componentWillMount() {
-        const {article_edit} = this.props;
-        let id = this.props.params.id || '';
-        console.log('------------ mode -----------')
-        console.log(id)
-        if ('' != id) {
-            let promise = $.ajax(URL_ARTICLE_VIEW + id);
-            promise.done(function (vo) {
-                article_edit(vo);
-            });
-            promise.fail(function (error) {
-                console.log(error)
-            });
-        }
-    }
-
     render() {
-        const {article, validationState} = this.props;
-        let mode = this.props.params.mode || '';
-        let view = mode == 'view';
+        const {article, view} = this.props;
+        console.log(`this.props ---- ${JSON.stringify(this.props)}`);
         let handleInput = function (name, event) {
-            let value = event.target.value || '';
-            article[name] = value;
+            article[name] = event.target.value || '';
             this.setState({article: article});
-            if ('' == value) {
-                validationState[name] = 'error';
-            } else {
-                validationState[name] = null;
-            }
-            this.setState({validationState: validationState});
+        };
+
+        let validationState = function (name) {
+            let value = article[name] || '';
+            return '' == value ? 'error' : null;
         };
 
         let handleSubmit = function () {
             for (let key in article) {
-                if (article[key] == null && key in validationState) {
-                    validationState[key] = 'error';
-                    this.setState({validationState: validationState});
-                    return;
-                }
+                if ('id' == key)continue;
+                if (validationState(key) != null) return;
             }
             let promise = $.ajax({
                 url: URL_ARTICLE_SAVE,
@@ -66,32 +44,33 @@ class ArticleAdd extends Component {
                 <Button bsSize="small" href="#/article/">
                     <span className="glyphicon glyphicon-arrow-left"/> Back</Button>
                 <Form horizontal>
-                    <FormGroup controlId="title" validationState={validationState.title}>
+                    <FormGroup controlId="title" validationState={validationState('title')}>
                         <Col sm={2}> 标题 </Col>
-                        <Col sm={10}> <FormControl type="text" placeholder="title" ref="title"
+                        <Col sm={10}> <FormControl type="text" placeholder="title" id="title"
                                                    readOnly={view}
                                                    value={article.title}
                                                    onChange={handleInput.bind(this, 'title')}/> </Col>
                     </FormGroup>
-                    <FormGroup controlId="brief" validationState={validationState.brief}>
+                    <FormGroup controlId="brief" validationState={validationState('brief')}>
                         <Col sm={2}> 简介 </Col>
                         <Col sm={10}> <FormControl type="text" placeholder="brief"
                                                    readOnly={view}
                                                    value={article.brief}
                                                    onChange={handleInput.bind(this, 'brief')}/> </Col>
                     </FormGroup>
-                    <FormGroup controlId="content" validationState={validationState.content}>
+                    <FormGroup controlId="content" validationState={validationState('content')}>
                         <Col sm={2}> 内容 </Col>
                         <Col sm={10}> <FormControl componentClass="textarea" placeholder="content"
                                                    readOnly={view}
                                                    value={article.content}
                                                    onChange={handleInput.bind(this, 'content')}/> </Col>
                     </FormGroup>
-                    <FormGroup>
-                        <Col smOffset={2} sm={10}>
-                            <Button bsSize="small" onClick={handleSubmit.bind(this)}> 提交 </Button>
-                        </Col>
-                    </FormGroup>
+                    {view ? null : <FormGroup>
+                            <Col smOffset={2} sm={10}>
+                                <Button bsSize="small" onClick={handleSubmit.bind(this)}> 提交 </Button>
+                            </Col>
+                        </FormGroup>
+                    }
                 </Form>
             </Grid>
         );

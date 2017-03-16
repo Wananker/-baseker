@@ -22,7 +22,8 @@ render(
                 <Route path="article">
                     <IndexRoute component={ArticleList}/>
                     <Route path="add" component={Article}/>
-                    <Route path=":mode/:id" component={Article}/>
+                    <Route path="edit" component={Article}/>
+                    <Route path="view" component={Article}/>
                 </Route>
             </Route>
         </Router>

@@ -3,14 +3,9 @@ import {URL_ARTICLE_LIST, URL_ARTICLE_VIEW, URL_ARTICLE_DELETE, URL_ARTICLE_SAVE
 
 export const ARTICLE_LIST = 'ARTICLE_LIST';
 export const ARTICLE_EDIT = 'ARTICLE_EDIT';
-
-export function article_list(vo) {
-    if (!vo.ok) show_alert();
-    return {
-        type: ARTICLE_LIST,
-        data: vo.data
-    }
-}
+export const ARTICLE_EDIT_INPUT = 'ARTICLE_EDIT_INPUT';
+export const ARTICLE_ADD = 'ARTICLE_ADD';
+export const ARTICLE_VIEW = 'ARTICLE_VIEW';
 
 export function article_init() {
     return (dispatch, getState) => {
@@ -18,7 +13,7 @@ export function article_init() {
         // const { counter } = getState()
         let promise = $.ajax(URL_ARTICLE_LIST);
         promise.done(function (vo) {
-            dispatch(article_list(vo))
+            dispatch(handle_vo(vo, ARTICLE_LIST))
         });
         promise.fail(function (error) {
             console.log(error)
@@ -26,11 +21,54 @@ export function article_init() {
     }
 }
 
-export function article_edit(vo) {
+export function article_add(vo, type) {
+    return {type: ARTICLE_ADD}
+}
+
+
+export function handle_vo(vo, type) {
     if (!vo.ok) show_alert();
     return {
-        type: ARTICLE_EDIT,
+        type: type,
         data: vo.data
+    }
+}
+
+
+export function article_edit(id) {
+    return (dispatch, getState) => {
+        let promise = $.ajax(URL_ARTICLE_VIEW + id);
+        promise.done(function (vo) {
+            dispatch(handle_vo(vo, ARTICLE_EDIT))
+        });
+        promise.fail(function (error) {
+            console.log(error)
+        });
+    }
+}
+
+export function article_view(id) {
+    return (dispatch, getState) => {
+        let promise = $.ajax(URL_ARTICLE_VIEW + id);
+        promise.done(function (vo) {
+            dispatch(handle_vo(vo, ARTICLE_VIEW))
+        });
+        promise.fail(function (error) {
+            console.log(error)
+        });
+    }
+}
+
+
+export function article_save(article) {
+    return (dispatch, getState) => {
+        let promise = $.ajax(URL_ARTICLE_VIEW + id);
+        promise.done(function (vo) {
+            dispatch(handle_vo(vo, ARTICLE_EDIT))
+        });
+        promise.fail(function (error) {
+            console.log(error)
+        });
     }
 }
 
