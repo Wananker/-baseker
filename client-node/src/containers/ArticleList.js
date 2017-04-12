@@ -6,7 +6,7 @@ import * as ArticleActions from '../actions/article'
 //将state.counter绑定到props的counter
 function mapStateToProps(state) {
     return {
-        articles: state.article.articles
+        articlePage: state.article.articlePage
     }
 }
 //将action的所有方法绑定到props上

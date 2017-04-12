@@ -5,7 +5,7 @@ class App extends Component {
 
     render() {
 
-        const {alertVisible, show_alert, hide_alert} = this.props;
+        const {alertVisible, alertMessage, show_alert, hide_alert} = this.props;
         return (
             <div>
                 <Navbar>
@@ -24,7 +24,7 @@ class App extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 { alertVisible ? <Alert bsStyle="danger" onDismiss={hide_alert}>
-                        <h4>Oh snap! You got an error!</h4>
+                        <h4>{alertMessage}</h4>
                     </Alert> : null
                 }
                 <div >

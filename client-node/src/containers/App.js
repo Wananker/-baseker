@@ -1,5 +1,5 @@
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 import App from '../components/App'
 import * as AppActions from '../actions/app'
 
@@ -7,7 +7,8 @@ import * as AppActions from '../actions/app'
 function mapStateToProps(state) {
 
     return {
-        alertVisible: state.app.alertVisible
+        alertVisible: state.app.alertVisible,
+        alertMessage: state.app.alertMessage
     }
 }
 //将action的所有方法绑定到props上

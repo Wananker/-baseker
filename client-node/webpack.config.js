@@ -10,7 +10,8 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: "/static/",
-        filename: '[name].[chunkhash:8].js'
+        // filename: '[name].[chunkhash:8].js',
+        filename: '[name].js',
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity),

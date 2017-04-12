@@ -7,11 +7,17 @@ export const ARTICLE_EDIT_INPUT = 'ARTICLE_EDIT_INPUT';
 export const ARTICLE_ADD = 'ARTICLE_ADD';
 export const ARTICLE_VIEW = 'ARTICLE_VIEW';
 
-export function article_init() {
+export function article_init(pageNum = 1, pageSize = 5) {
     return (dispatch, getState) => {
         //获取state对象中的counter属性值
         // const { counter } = getState()
-        let promise = $.ajax(URL_ARTICLE_LIST);
+        let promise = $.ajax({
+            url: URL_ARTICLE_LIST,
+            data: JSON.stringify({pageNum: pageNum, pageSize: pageSize}),
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json;charset=utf-8'
+        });
         promise.done(function (vo) {
             dispatch(handle_vo(vo, ARTICLE_LIST))
         });
@@ -21,13 +27,13 @@ export function article_init() {
     }
 }
 
-export function article_add(vo, type) {
+export function article_add() {
     return {type: ARTICLE_ADD}
 }
 
 
 export function handle_vo(vo, type) {
-    if (!vo.ok) show_alert();
+    if (!vo.ok) dispatch(show_alert(vo.msg));
     return {
         type: type,
         data: vo.data
