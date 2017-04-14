@@ -2,7 +2,7 @@ import {ARTICLE_LIST, ARTICLE_EDIT, ARTICLE_ADD, ARTICLE_VIEW} from '../actions/
 
 //reducer其实也是个方法而已,参数是state和action,返回值是新的state
 const initState = {
-    articlePage: {pageNum: 1, pageSize: 2, pages: 1, list: []},
+    articlePage: {pageNum: 1, pageSize: 5, pages: 1, list: []},
     article: {id: null, title: null, brief: null, content: null},
     view: false
 };

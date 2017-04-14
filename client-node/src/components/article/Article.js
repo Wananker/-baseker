@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import {browserHistory} from 'react-router';
 import {Glyphicon, Grid, Button, Form, FormGroup, FormControl, Checkbox, Col} from "react-bootstrap";
-import {URL_ARTICLE_LIST, URL_ARTICLE_VIEW, URL_ARTICLE_DELETE, URL_ARTICLE_SAVE} from '../../constants/AppConfig'
+import { URL_ARTICLE_SAVE} from '../../constants/AppConfig'
 import {createHashHistory} from 'history'
 const history = createHashHistory();
 
@@ -9,7 +9,6 @@ class ArticleAdd extends Component {
 
     render() {
         const {article, view} = this.props;
-        console.log(`this.props ---- ${JSON.stringify(this.props)}`);
         let handleInput = function (name, event) {
             article[name] = event.target.value || '';
             this.setState({article: article});

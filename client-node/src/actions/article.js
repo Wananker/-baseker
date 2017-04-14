@@ -7,10 +7,13 @@ export const ARTICLE_EDIT_INPUT = 'ARTICLE_EDIT_INPUT';
 export const ARTICLE_ADD = 'ARTICLE_ADD';
 export const ARTICLE_VIEW = 'ARTICLE_VIEW';
 
-export function article_init(pageNum = 1, pageSize = 5) {
+export function article_init(pageNum, pageSize) {
     return (dispatch, getState) => {
         //获取state对象中的counter属性值
-        // const { counter } = getState()
+        const {articlePage} = getState().article;
+        pageNum = pageNum || articlePage.pageNum;
+        pageSize = pageSize || articlePage.pageSize;
+
         let promise = $.ajax({
             url: URL_ARTICLE_LIST,
             data: JSON.stringify({pageNum: pageNum, pageSize: pageSize}),
